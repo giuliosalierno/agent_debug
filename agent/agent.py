@@ -25,9 +25,8 @@ root_agent = Agent(
     tools=[create_frame, animate_frame],
 )
 
-app_name = os.environ.get("GOOGLE_CLOUD_AGENT_ENGINE_ID", "agent")
 
 app = App(
-    name=app_name,
+    name='agent_test',
     root_agent=root_agent
 )

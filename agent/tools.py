@@ -3,10 +3,13 @@ import os
 
 import google.auth
 import google.genai as genai
+from dotenv import load_dotenv
 from google.adk.tools import ToolContext
 from google.cloud import storage
 from google.genai import types
 from google.genai.types import Image
+
+load_dotenv()
 
 _, project_id = google.auth.default()
 os.environ.setdefault("GOOGLE_CLOUD_PROJECT", project_id)
