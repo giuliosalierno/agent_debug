@@ -35,6 +35,29 @@ Install required packages and launch the local development environment:
 make install && make playground
 ```
 
+## Configuration & Permissions
+
+### Storage Bucket Permissions
+The agent requires a Google Cloud Storage bucket to store generated images and videos. The bucket name defaults to `{project_id}-mova-artifacts`.
+
+The agent's service account (e.g., `service-{project_number}@gcp-sa-aiplatform-re.iam.gserviceaccount.com`) must have the **Storage Object Admin** role on the bucket.
+
+You can grant this permission using `gcloud`:
+
+```bash
+gcloud storage buckets add-iam-policy-binding gs://<bucket-name> \
+  --member="serviceAccount:service-<project-number>@gcp-sa-aiplatform-re.iam.gserviceaccount.com" \
+  --role="roles/storage.objectAdmin"
+```
+
+### Environment Variables
+You can customize the bucket name by setting the `BUCKET_NAME` environment variable.
+
+Example:
+```bash
+BUCKET_NAME="my-custom-mova-artifacts-bucket"
+```
+
 ## Commands
 
 | Command              | Description                                                                                 |
@@ -74,29 +97,6 @@ make deploy
 To add CI/CD and Terraform, run `uvx agent-starter-pack enhance`.
 To set up your production infrastructure, run `uvx agent-starter-pack setup-cicd`.
 See the [deployment guide](https://googlecloudplatform.github.io/agent-starter-pack/guide/deployment) for details.
-
-## Configuration & Permissions
-
-### Storage Bucket Permissions
-The agent requires a Google Cloud Storage bucket to store generated images and videos. The bucket name defaults to `{project_id}-mova-artifacts`.
-
-The agent's service account (e.g., `service-{project_number}@gcp-sa-aiplatform-re.iam.gserviceaccount.com`) must have the **Storage Object Admin** role on the bucket.
-
-You can grant this permission using `gcloud`:
-
-```bash
-gcloud storage buckets add-iam-policy-binding gs://<bucket-name> \
-  --member="serviceAccount:service-<project-number>@gcp-sa-aiplatform-re.iam.gserviceaccount.com" \
-  --role="roles/storage.objectAdmin"
-```
-
-### Environment Variables
-You can customize the bucket name by setting the `BUCKET_NAME` environment variable.
-
-Example:
-```bash
-BUCKET_NAME="my-custom-mova-artifacts-bucket"
-```
 
 ## Observability
 
